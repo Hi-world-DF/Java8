@@ -10,7 +10,7 @@ import org.thymeleaf.util.StringUtils;
 import java.util.Random;
 
 /**
- * TODO
+ * Code服务实现
  *
  * @author wangdf
  * @version 1.0, 2020/12/23
@@ -23,11 +23,12 @@ public class MfaCodeServiceImpl implements IMfaCodeService {
     private IRedisService redisService;
 
     @Value("${redis.key.prefix.authCode}")
-    private String REDIS_KEY_PREFIX_AUTH_CODE;
+    private String VERIFICATION_CODE;
 
     @Value("${redis.key.expire.authCode}")
-    private Long AUTH_CODE_EXPIRE_SECONDS;
+    private Long EXPIRE_SECONDS;
 
+    /** {@inheritDoc} */
     @Override
     public boolean generateCode(Long userId) {
 
@@ -37,16 +38,17 @@ public class MfaCodeServiceImpl implements IMfaCodeService {
             sb.append(random.nextInt(10));
         }
 
-        redisService.set(REDIS_KEY_PREFIX_AUTH_CODE + userId, sb.toString());
-        return redisService.expire(REDIS_KEY_PREFIX_AUTH_CODE + userId, AUTH_CODE_EXPIRE_SECONDS);
+        redisService.set(VERIFICATION_CODE + userId, sb.toString());
+        return redisService.expire(VERIFICATION_CODE + userId, EXPIRE_SECONDS);
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean valid(Long userId, String code) {
-        if(StringUtils.isEmpty(code)) {
+        if (StringUtils.isEmpty(code)) {
             return false;
         }
-        String realCode = redisService.get(REDIS_KEY_PREFIX_AUTH_CODE + userId);
+        String realCode = redisService.get(VERIFICATION_CODE + userId);
         return code.equals(realCode);
     }
 }

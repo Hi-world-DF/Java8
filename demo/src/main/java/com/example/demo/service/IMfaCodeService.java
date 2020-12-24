@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
 /**
- * TODO
+ * 验证码服务
  *
  * @author wangdf
  * @version 1.0, 2020/12/23
@@ -10,7 +10,7 @@ package com.example.demo.service;
 public interface IMfaCodeService {
 
     /**
-     * 生成验证码
+     * 生成6位数字验证码 有效期 5分钟
      *
      * @param userId 用户id
      * @return 成功 true 失败 false
@@ -21,7 +21,7 @@ public interface IMfaCodeService {
      * 校验验证码
      *
      * @param userId 用户id
-     * @param code 验证码
+     * @param code   验证码
      * @return 成功 true 失败 false
      */
     boolean valid(Long userId, String code);

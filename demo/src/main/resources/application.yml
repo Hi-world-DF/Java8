@@ -39,3 +39,11 @@ mybatis:
 logging:
   level:
     com.example.demo.dao: debug
+
+# 自定义redis key
+redis:
+  key:
+    prefix:
+      authCode: "verification:code:"
+    expire:
+      authCode: 300 # 验证码超期时间,5分钟
