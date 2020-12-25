@@ -26,6 +26,14 @@ public interface IRedisService {
     String get(String key);
 
     /**
+     * 是否含有key
+     *
+     * @param key 键值
+     * @return  是否存在键值key
+     */
+    boolean exit(String key);
+
+    /**
      * 设置超时时间
      *
      * @param key 键

@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.SignUpResponseDTO;
 import com.example.demo.dto.UserDTO;
 import com.example.demo.entity.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,4 +38,13 @@ public interface IUserService {
      * @return
      */
     int save(UserDTO userDTO);
+
+    /**
+     * 邮箱登陆：分布式锁练习
+     *
+     * @param email 邮箱
+     * @return SignUpResponseDTO 返回登陆响应对象
+     */
+    SignUpResponseDTO signUp(String email);
+
 }

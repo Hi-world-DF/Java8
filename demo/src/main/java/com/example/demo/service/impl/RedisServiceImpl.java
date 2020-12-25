@@ -17,7 +17,6 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class RedisServiceImpl implements IRedisService {
 
-
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
@@ -31,6 +30,12 @@ public class RedisServiceImpl implements IRedisService {
     @Override
     public String get(String key) {
         return stringRedisTemplate.opsForValue().get(key);
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public boolean exit(String key) {
+        return stringRedisTemplate.hasKey(key);
     }
 
     /** {@inheritDoc} */
